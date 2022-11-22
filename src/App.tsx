@@ -1,32 +1,15 @@
-import React, { useEffect } from "react";
-import axios from "axios";
+import { Card, Row } from "antd";
 
-import "./App.css";
+import AddTodoItem from "./pages/Todo/AddTodoItem/AddTodoItem";
+import TodoList from "./pages/Todo/TodoList/TodoList";
 
-function App() {
-  useEffect(() => {
-    (async () => {
-      await axios.get("http://localhost:5000/api/v1/greeting");
-    })();
-  }, []);
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <Row justify="center">
+    <Card bodyStyle={{ padding: 0, width: 400 }}>
+      <AddTodoItem />
+      <TodoList />
+    </Card>
+  </Row>
+);
 
 export default App;
