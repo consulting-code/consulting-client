@@ -1,17 +1,31 @@
 import { List } from "antd";
 
+import { ITodoItem } from "../types";
+
 import TodoItem from "./TodoItem/TodoItem";
+import { FC } from "react";
 
-const data = [
-  "Racing car sprays burning fuel into crowd.",
-  "Japanese princess to wed commoner.",
-  "Australian walks 100km after outback crash.",
-  "Man charged over missing wedding girl.",
-  "Los Angeles battles huge wildfires.",
-];
+type TodoListProps = {
+  list: ITodoItem[];
+  deleteItem: (id: number) => void;
+  changeItemCompleteness: (id: number) => void;
+};
 
-const TodoList = () => (
-  <List dataSource={data} renderItem={(item) => <TodoItem item={item} />} />
+const TodoList: FC<TodoListProps> = ({
+  list,
+  deleteItem,
+  changeItemCompleteness,
+}) => (
+  <List
+    dataSource={list}
+    renderItem={(item) => (
+      <TodoItem
+        item={item}
+        deleteItem={deleteItem}
+        changeItemCompleteness={changeItemCompleteness}
+      />
+    )}
+  />
 );
 
 export default TodoList;
