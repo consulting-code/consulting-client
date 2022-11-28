@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo, useEffect } from "react";
 import { Button, Checkbox, List } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 
@@ -15,6 +15,10 @@ const TodoItem: FC<TodoItemProps> = ({
   deleteItem,
   changeItemCompleteness,
 }) => {
+  useEffect(() => {
+    console.log(`[TodoItem] render ${item.title}`);
+  });
+
   const onDeleteItemClick = () => {
     deleteItem(item.id);
   };
@@ -41,4 +45,4 @@ const TodoItem: FC<TodoItemProps> = ({
   );
 };
 
-export default TodoItem;
+export default memo(TodoItem);

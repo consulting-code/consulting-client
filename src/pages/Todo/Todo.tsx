@@ -2,7 +2,7 @@ import { Card } from "antd";
 
 import AddTodoItem from "./AddTodoItem/AddTodoItem";
 import TodoList from "./TodoList/TodoList";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ITodoItem } from "./types";
 
 const initTodoList: ITodoItem[] = [
@@ -43,23 +43,25 @@ const Todo = () => {
     setTodoList(updatedItems);
   };
 
-  const changeItemCompleteness = (targetId: number) => {
-    const updatedItems = todoList.map((item) => {
-      if (item.id === targetId) {
-        return {
-          ...item,
-          isCompleted: !item.isCompleted,
-        };
-      }
-      return item;
+  const changeItemCompleteness = useCallback((targetId: number) => {
+    setTodoList((prevState) => {
+      return prevState.map((item) => {
+        if (item.id === targetId) {
+          return {
+            ...item,
+            isCompleted: !item.isCompleted,
+          };
+        }
+        return item;
+      });
     });
-    setTodoList(updatedItems);
-  };
+  }, []);
 
-  const deleteItem = (targetId: number) => {
-    const updatedItems = todoList.filter((item) => item.id !== targetId);
-    setTodoList(updatedItems);
-  };
+  const deleteItem = useCallback((targetId: number) => {
+    setTodoList((prevState) => {
+      return prevState.filter((item) => item.id !== targetId);
+    });
+  }, []);
 
   return (
     <Card bodyStyle={{ padding: 0, width: 400 }}>
