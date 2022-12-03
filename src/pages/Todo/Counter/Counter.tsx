@@ -14,7 +14,6 @@ interface CounterAction {
 const initialState: ICounter = { count: 18 };
 
 function fibonacci(num: number): number {
-  console.log(num);
   if (num < 2) {
     return num;
   } else {
@@ -51,8 +50,6 @@ function reducer(state: ICounter, action: CounterAction) {
 const Counter = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const fib = useMemo(() => fibonacciCalc(state.count), [state.count]);
-
-  console.log("[Counter] render");
 
   return (
     <div>
