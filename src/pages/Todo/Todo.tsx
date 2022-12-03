@@ -1,9 +1,9 @@
-import { Card } from "antd";
+import { createContext, useCallback, useEffect, useState } from "react";
+import { Card, Switch } from "antd";
 
 import AddTodoItem from "./AddTodoItem/AddTodoItem";
 import TodoList from "./TodoList/TodoList";
-import { useCallback, useState } from "react";
-import { ITodoItem } from "./types";
+import { IColors, IThemes, ITodoItem } from "./types";
 
 const initTodoList: ITodoItem[] = [
   {
@@ -29,8 +29,23 @@ const initTodoList: ITodoItem[] = [
   },
 ];
 
+const themes: IThemes = {
+  light: {
+    textColor: "#000000",
+    backgroundColor: "#eeeeee",
+  },
+  dark: {
+    textColor: "#ffffff",
+    backgroundColor: "#222222",
+  },
+};
+
+export const ThemeContext = createContext<IColors>(themes.light);
+
 const Todo = () => {
   const [todoList, setTodoList] = useState(initTodoList);
+  const [isChecked, setIsChecked] = useState(false);
+  const [theme, setTheme] = useState(themes.light);
 
   const addNewItem = (title: string) => {
     const newItem: ITodoItem = {
@@ -63,15 +78,28 @@ const Todo = () => {
     });
   }, []);
 
+  const onThemeChange = (value: boolean) => {
+    setIsChecked(value);
+    setTheme(value ? themes.dark : themes.light);
+  };
+
   return (
-    <Card bodyStyle={{ padding: 0, width: 400 }}>
-      <AddTodoItem addNewItem={addNewItem} />
-      <TodoList
-        list={todoList}
-        deleteItem={deleteItem}
-        changeItemCompleteness={changeItemCompleteness}
-      />
-    </Card>
+    <ThemeContext.Provider value={theme}>
+      <Card bodyStyle={{ padding: 0, width: 400 }}>
+        <Switch
+          checked={isChecked}
+          checkedChildren="Dark"
+          unCheckedChildren="Light"
+          onChange={onThemeChange}
+        />
+        <AddTodoItem addNewItem={addNewItem} />
+        <TodoList
+          list={todoList}
+          deleteItem={deleteItem}
+          changeItemCompleteness={changeItemCompleteness}
+        />
+      </Card>
+    </ThemeContext.Provider>
   );
 };
 

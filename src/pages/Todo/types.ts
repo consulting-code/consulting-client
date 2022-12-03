@@ -4,3 +4,13 @@ export interface ITodoItem {
   isCompleted: boolean;
   description: string;
 }
+
+export interface IColors {
+  textColor: string;
+  backgroundColor: string;
+}
+
+export interface IThemes {
+  light: IColors;
+  dark: IColors;
+}

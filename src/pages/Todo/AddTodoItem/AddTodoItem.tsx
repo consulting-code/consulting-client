@@ -8,6 +8,8 @@ import {
   KeyboardEvent,
 } from "react";
 
+import ThemedButton from "./ThemedButton/ThemedButton";
+
 type AddTodoItemProps = {
   addNewItem: (title: string) => void;
 };
@@ -49,6 +51,9 @@ const AddTodoItem: FC<AddTodoItemProps> = ({ addNewItem }) => {
       </Col>
       <Col>
         <Button onClick={onAddNewItemClick}>Add</Button>
+      </Col>
+      <Col>
+        <ThemedButton />
       </Col>
     </Row>
   );
