@@ -1,9 +1,10 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 import { Card, Switch } from "antd";
 
+import { IColors, IThemes, ITodoItem } from "./types";
 import AddTodoItem from "./AddTodoItem/AddTodoItem";
 import TodoList from "./TodoList/TodoList";
-import { IColors, IThemes, ITodoItem } from "./types";
+import Counter from "./Counter/Counter";
 
 const initTodoList: ITodoItem[] = [
   {
@@ -98,6 +99,7 @@ const Todo = () => {
           deleteItem={deleteItem}
           changeItemCompleteness={changeItemCompleteness}
         />
+        <Counter />
       </Card>
     </ThemeContext.Provider>
   );
