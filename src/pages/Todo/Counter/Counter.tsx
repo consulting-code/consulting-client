@@ -22,6 +22,21 @@ function fibonacci(num: number): number {
   }
 }
 
+function fibonacciCached(): Function {
+  let cache = new Map();
+  function fn(num: number) {
+    if (!cache.has(num)) {
+      const result = fibonacci(num);
+      cache.set(num, result);
+      return result;
+    }
+    return cache.get(num);
+  }
+  return fn;
+}
+
+const fibonacciCalc = fibonacciCached();
+
 function reducer(state: ICounter, action: CounterAction) {
   switch (action.type) {
     case "increment":
@@ -35,7 +50,7 @@ function reducer(state: ICounter, action: CounterAction) {
 
 const Counter = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const fib = useMemo(() => fibonacci(state.count), [state.count]);
+  const fib = useMemo(() => fibonacciCalc(state.count), [state.count]);
 
   console.log("[Counter] render");
 
