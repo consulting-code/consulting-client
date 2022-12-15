@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
   KeyboardEvent,
+  useId,
 } from "react";
 
 import ThemedButton from "./ThemedButton/ThemedButton";
@@ -15,8 +16,11 @@ type AddTodoItemProps = {
 };
 
 const AddTodoItem: FC<AddTodoItemProps> = ({ addNewItem }) => {
+  const id = useId();
   const [title, setTitle] = useState("");
   const titleInput = useRef<InputRef>(null);
+  const buttonInput = useRef<any>(null);
+  console.log(id);
 
   useEffect(() => {
     titleInput.current?.focus();
@@ -53,7 +57,9 @@ const AddTodoItem: FC<AddTodoItemProps> = ({ addNewItem }) => {
         <Button onClick={onAddNewItemClick}>Add</Button>
       </Col>
       <Col>
-        <ThemedButton />
+        <ThemedButton ref={buttonInput} />
+        <ThemedButton ref={buttonInput} />
+        <ThemedButton ref={buttonInput} />
       </Col>
     </Row>
   );
